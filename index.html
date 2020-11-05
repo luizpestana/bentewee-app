@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>bentewee</title>
+    <link href="./index.css" rel="stylesheet">
+  </head>
+  <body>
+    <webview id="benteview" src="https://www.bentewee.com/" partition="persist:webview" autosize plugins></webview>
+    <script>
+      var webview = document.getElementById('benteview');
+      webview.addEventListener('dom-ready', e => {
+        webview.blur();
+        webview.focus();
+      });
+    </script>
+  </body>
+</html>
