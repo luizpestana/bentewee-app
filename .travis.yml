@@ -35,7 +35,7 @@ before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
 
 deploy:
-  provider: github
+  provider: releases
   api_key: $GH_TOKEN
   file:
     - "bentewee.dmg"
