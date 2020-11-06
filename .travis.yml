@@ -37,15 +37,17 @@ before_cache:
 
 after_success:
   - |
-    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      curl -T dist/bentewee.zip ${SFTP_ADDRESS} --user ${SFTP_USER}:${SFTP_PASSWORD}
-      curl -T dist/bentewee-setup.exe ${SFTP_ADDRESS} --user ${SFTP_USER}:${SFTP_PASSWORD}
-      curl -T dist/bentewee.deb ${SFTP_ADDRESS} --user ${SFTP_USER}:${SFTP_PASSWORD}
-      curl -T dist/bentewee.rpm ${SFTP_ADDRESS} --user ${SFTP_USER}:${SFTP_PASSWORD}
-      curl -T dist/bentewee.tar.gz ${SFTP_ADDRESS} --user ${SFTP_USER}:${SFTP_PASSWORD}
-      curl -T dist/bentewee.AppImage ${SFTP_ADDRESS} --user ${SFTP_USER}:${SFTP_PASSWORD}
-    else
-      curl -T dist/bentewee.dmg ${SFTP_ADDRESS} --user ${SFTP_USER}:${SFTP_PASSWORD}
+    if [ "$TRAVIS_TAG" != "" ]; then
+      if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+        curl -T dist/bentewee.zip ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD}
+        curl -T dist/bentewee-setup.exe ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD}
+        curl -T dist/bentewee.deb ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD}
+        curl -T dist/bentewee.rpm ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD}
+        curl -T dist/bentewee.tar.gz ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD}
+        curl -T dist/bentewee.AppImage ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD}
+      else
+        curl -T dist/bentewee.dmg ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD}
+      fi
     fi
 
 branches:

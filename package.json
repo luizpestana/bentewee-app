@@ -21,13 +21,22 @@
     "productName": "bentewee",
     "artifactName": "${productName}.${ext}",
     "copyright": "Copyright (c) 2020 bentewee",
-    "mac": {
-      "category": "public.app-category.games",
-      "icon": "assets/icon.png"
-    },
     "directories": {
       "output": "dist",
       "buildResources": "assets"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "mac": {
+      "category": "public.app-category.games",
+      "icon": "assets/icon.png",
+      "target": [
+        "dmg"
+      ]
     },
     "linux": {
       "target": [
@@ -39,12 +48,6 @@
       "desktop": {
         "Categories": "Game"
       }
-    },
-    "win": {
-      "target": [
-        "nsis",
-        "portable"
-      ]
     },
     "nsis": {
       "installerIcon": "assets/icon.ico",
