@@ -4,7 +4,8 @@
   "description": "A bentewee app",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "release": "electron-builder"
   },
   "repository": "https://github.com/bentewee/bentewee-app",
   "keywords": [
