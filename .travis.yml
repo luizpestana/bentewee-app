@@ -36,8 +36,17 @@ before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
 
 after_success:
-  - find dist/ -maxdepth 1 -type f \( -name "bentewee.*" -o -name "bentewee-setup.*" \) -print -exec \
-    curl --ftp-create-dirs -T {} ftp://downloads.bentewee.com/downloads/ --user ${SFTP_USER}:${SFTP_PASSWORD} \;
+  - |
+    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+      curl -T dist/bentewee.zip ${SFTP_ADDRESS} --user ${SFTP_USER}:${SFTP_PASSWORD}
+      curl -T dist/bentewee-setup.exe ${SFTP_ADDRESS} --user ${SFTP_USER}:${SFTP_PASSWORD}
+      curl -T dist/bentewee.deb ${SFTP_ADDRESS} --user ${SFTP_USER}:${SFTP_PASSWORD}
+      curl -T dist/bentewee.rpm ${SFTP_ADDRESS} --user ${SFTP_USER}:${SFTP_PASSWORD}
+      curl -T dist/bentewee.tar.gz ${SFTP_ADDRESS} --user ${SFTP_USER}:${SFTP_PASSWORD}
+      curl -T dist/bentewee.AppImage ${SFTP_ADDRESS} --user ${SFTP_USER}:${SFTP_PASSWORD}
+    else
+      curl -T dist/bentewee.dmg ${SFTP_ADDRESS} --user ${SFTP_USER}:${SFTP_PASSWORD}
+    fi
 
 branches:
   only:
