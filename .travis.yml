@@ -36,7 +36,8 @@ before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
 
 after_success:
-  - find dist/ -type f -name "bentewee.*" -print -exec curl --ftp-create-dirs -T {} ftp://luizpestana.com/ --user ${SFTP_USER}:${SFTP_PASSWORD} \;
+  - find dist/ -maxdepth 1 -type f \( -name "bentewee.*" -o -name "bentewee-setup.*" \) -print -exec \
+    curl --ftp-create-dirs -T {} ftp://downloads.bentewee.com/downloads/ --user ${SFTP_USER}:${SFTP_PASSWORD} \;
 
 branches:
   only:

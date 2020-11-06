@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "release": "electron-builder"
+    "release": "electron-builder -p never"
   },
   "repository": "https://github.com/bentewee/bentewee-app",
   "keywords": [
