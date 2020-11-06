@@ -19,6 +19,7 @@ function createWindow () {
   const mainWindow = new BrowserWindow({
     width: 1280,
     height: 720,
+    icon: `${__dirname}/build/icon.png`,
     webPreferences: {
       plugins: true,
       webviewTag: true,

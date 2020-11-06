@@ -33,3 +33,6 @@ script:
     fi
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
+
+notifications:
+  email: false

@@ -16,6 +16,55 @@
     "email": "bentewee@bentewee.com",
     "url": "https://www.bentewee.com/"
   },
+  "build": {
+    "appId": "com.bentewee.bentewee-app",
+    "productName": "bentewee-app",
+    "artifactName": "${productName}.${ext}",
+    "copyright": "Copyright (c) 2020 bentewee",
+    "mac": {
+      "category": "public.app-category.games"
+    },
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "tar.gz",
+        "AppImage"
+      ],
+      "desktop": {
+        "Categories": "Game"
+      }
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": "false",
+      "artifactName": "${productName}-Setup.${ext}",
+      "perMachine": true,
+      "deleteAppDataOnUninstall": true,
+      "license": "LICENSE.md",
+      "language": "1033",
+      "installerSidebar": "background.bmp"
+    },
+    "dmg": {
+      "icon": "build/icon.png",
+      "background": "build/background.png",
+      "title": "${productName}-Setup",
+      "artifactName": "${productName}.${ext}",
+      "window": {
+        "height": 380,
+        "width": 540
+      }
+    }
+  },
   "license": "MIT",
   "devDependencies": {
     "electron": "^4.2.12",
