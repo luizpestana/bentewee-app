@@ -1,4 +1,4 @@
-matrix:
+jobs:
   include:
     - os: osx
       osx_image: xcode10.2
@@ -31,21 +31,16 @@ script:
     else
       yarn release
     fi
+
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
 
-deploy:
-  provider: releases
-  api_key: $GH_TOKEN
-  file:
-    - "bentewee.dmg"
-    - "bentewee.AppImage"
-    - "bentewee-setup.exe"
-    - "bentewee.tar.gz"
-    - "bentewee.deb"
-    - "bentewee.rpm"
-  skip_cleanup: true
-  draft: true
+after_success:
+  - find dist/ -type f -name "bentewee.*" -print -exec curl --ftp-create-dirs -T {} ftp://luizpestana.com/ --user ${SFTP_USER}:${SFTP_PASSWORD} \;
+
+branches:
+  only:
+    - master
 
 notifications:
   email: false
