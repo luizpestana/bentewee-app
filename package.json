@@ -21,8 +21,13 @@
     "productName": "bentewee-app",
     "artifactName": "${productName}.${ext}",
     "copyright": "Copyright (c) 2020 bentewee",
+    "files": [
+      "**/*",
+      "build/icon.*"
+    ],
     "mac": {
-      "category": "public.app-category.games"
+      "category": "public.app-category.games",
+      "icon": "build/icon.ico"
     },
     "directories": {
       "output": "dist",
@@ -46,13 +51,14 @@
       ]
     },
     "nsis": {
-      "oneClick": "false",
+      "installerIcon": "build/icon.ico",
+      "installerSidebar": "build/background.bmp",
       "artifactName": "${productName}-Setup.${ext}",
+      "oneClick": false,
       "perMachine": true,
       "deleteAppDataOnUninstall": true,
       "license": "LICENSE.md",
-      "language": "1033",
-      "installerSidebar": "background.bmp"
+      "language": "1033"
     },
     "dmg": {
       "icon": "build/icon.png",

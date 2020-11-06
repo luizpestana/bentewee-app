@@ -1,7 +1,26 @@
 const {app, shell, BrowserWindow} = require('electron');
 const path = require('path');
 
-let pluginName
+let mainWindow = null;
+const instanceLock = app.requestSingleInstanceLock();
+
+if (!instanceLock) {
+  app.quit();
+}
+else {
+  app.on('second-instance', (event, argv, workingDirectory) => {
+    if (mainWindow) {
+      console.log('Second instance launched. Focus on currently running instance if minimized.');
+
+      if (mainWindow.isMinimized()) {
+        mainWindow.restore();
+        mainWindow.focus();
+      }
+    }
+  });
+}
+
+let pluginName;
 switch (process.platform) {
   case 'win32':
     pluginName = './plugins/pepflashplayer.dll';
@@ -16,7 +35,11 @@ switch (process.platform) {
 app.commandLine.appendSwitch('ppapi-flash-path', path.join(__dirname, pluginName));
 
 function createWindow () {
-  const mainWindow = new BrowserWindow({
+  if (mainWindow) {
+    return;
+  }
+
+  mainWindow = new BrowserWindow({
     width: 1280,
     height: 720,
     icon: `${__dirname}/build/icon.png`,
@@ -27,12 +50,15 @@ function createWindow () {
     }
   });
 
+  mainWindow.on('closed', () => {
+    mainWindow = null;
+  });
+
   mainWindow.setMenuBarVisibility(false);
   mainWindow.loadURL(`file://${__dirname}/index.html`);
 }
 
 app.whenReady().then(() => {
-  console.log(process.versions);
   createWindow();
   
   app.on('activate', function () {
