@@ -47,7 +47,7 @@
       ]
     },
     "nsis": {
-      "installerIcon": "assets/icon.png",
+      "installerIcon": "assets/icon.ico",
       "installerSidebar": "assets/background.bmp",
       "artifactName": "${productName}-Setup.${ext}",
       "oneClick": false,
