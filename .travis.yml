@@ -11,6 +11,20 @@ matrix:
     - os: linux
       services: docker
       language: generic
+    
+    - stage: GitHub Release
+      deploy:
+        provider: github
+        api_key: $GH_TOKEN
+        file:
+          - "bentewee.dmg"
+          - "bentewee.AppImage"
+          - "bentewee-setup.exe"
+          - "bentewee.tar.gz"
+          - "bentewee.deb"
+          - "bentewee.rpm"
+        skip_cleanup: true
+        draft: true
 
 cache:
   directories:

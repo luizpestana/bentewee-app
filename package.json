@@ -18,7 +18,7 @@
   },
   "build": {
     "appId": "com.bentewee.bentewee-app",
-    "productName": "bentewee-app",
+    "productName": "bentewee",
     "artifactName": "${productName}.${ext}",
     "copyright": "Copyright (c) 2020 bentewee",
     "mac": {
@@ -49,7 +49,7 @@
     "nsis": {
       "installerIcon": "assets/icon.ico",
       "installerSidebar": "assets/background.bmp",
-      "artifactName": "${productName}-Setup.${ext}",
+      "artifactName": "${productName}-setup.${ext}",
       "oneClick": false,
       "perMachine": true,
       "deleteAppDataOnUninstall": true,
@@ -59,7 +59,7 @@
     "dmg": {
       "icon": "assets/icon.png",
       "background": "assets/background.png",
-      "title": "${productName}-Setup",
+      "title": "${productName}-setup",
       "artifactName": "${productName}.${ext}",
       "window": {
         "height": 380,
