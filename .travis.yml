@@ -41,7 +41,6 @@ after_success:
       TRAVIS_TAG=dev
     fi
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      curl -T dist/bentewee.zip ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD}
       curl -T dist/bentewee-setup.exe ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD}
       curl -T dist/bentewee.deb ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD}
       curl -T dist/bentewee.rpm ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD}
