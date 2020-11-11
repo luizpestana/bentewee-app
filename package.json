@@ -25,9 +25,12 @@
       "output": "dist",
       "buildResources": "assets"
     },
-    "files": [
-      "**/*",
-      "plugins/*.*"
+    "extraFiles": [
+      {
+        "from": "plugins",
+        "to": "plugins",
+        "filter": ["**/*"]
+      }
     ],
     "win": {
       "target": [
