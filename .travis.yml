@@ -36,6 +36,10 @@ before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
 
 after_success:
+  - 'curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"'
+  - 'unzip awscli-bundle.zip'
+  - './awscli-bundle/install -b ~/bin/aws'
+  - 'export PATH=~/bin:$PATH'
   - |
     if [ "$TRAVIS_TAG" == "" ]; then
       TRAVIS_TAG=dev
