@@ -35,26 +35,6 @@ script:
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
 
-after_success:
-  - 'curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"'
-  - 'unzip awscli-bundle.zip'
-  - './awscli-bundle/install -b ~/bin/aws'
-  - 'export PATH=~/bin:$PATH'
-  - |
-    if [ "$TRAVIS_TAG" == "" ]; then
-      TRAVIS_TAG=dev
-    fi
-    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      aws s3 cp dist/bentewee.exe s3://bentewee/app/${TRAVIS_TAG}/ --endpoint-url https://nyc3.digitaloceanspaces.com
-      aws s3 cp dist/bentewee-setup.exe s3://bentewee/app/${TRAVIS_TAG}/ --endpoint-url https://nyc3.digitaloceanspaces.com
-      aws s3 cp dist/bentewee.deb s3://bentewee/app/${TRAVIS_TAG}/ --endpoint-url https://nyc3.digitaloceanspaces.com
-      aws s3 cp dist/bentewee.rpm s3://bentewee/app/${TRAVIS_TAG}/ --endpoint-url https://nyc3.digitaloceanspaces.com
-      aws s3 cp dist/bentewee.tar.gz s3://bentewee/app/${TRAVIS_TAG}/ --endpoint-url https://nyc3.digitaloceanspaces.com
-      aws s3 cp dist/bentewee.AppImage s3://bentewee/app/${TRAVIS_TAG}/ --endpoint-url https://nyc3.digitaloceanspaces.com
-    else
-      aws s3 cp dist/bentewee.dmg s3://bentewee/app/${TRAVIS_TAG}/ --endpoint-url https://nyc3.digitaloceanspaces.com
-    fi
-
 branches:
   only:
     - master
