@@ -42,20 +42,20 @@ after_success:
     fi
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       curl -T dist/bentewee.exe ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD} \
-        --max-time 1800 --connect-timeout 10 --retry 128 --disable-epsv --ftp-pasv --ipv4
+        --max-time 1800 --connect-timeout 10 --retry 128 --disable-epsv --ftp-pasv --ipv4 --verbose --progress-bar
       curl -T dist/bentewee-setup.exe ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD} \
-        --max-time 1800 --connect-timeout 10 --retry 128 --disable-epsv --ftp-pasv --ipv4
+        --max-time 1800 --connect-timeout 10 --retry 128 --disable-epsv --ftp-pasv --ipv4 --verbose --progress-bar
       curl -T dist/bentewee.deb ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD} \
-        --max-time 1800 --connect-timeout 10 --retry 128 --disable-epsv --ftp-pasv --ipv4
+        --max-time 1800 --connect-timeout 10 --retry 128 --disable-epsv --ftp-pasv --ipv4 --verbose --progress-bar
       curl -T dist/bentewee.rpm ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD} \
-        --max-time 1800 --connect-timeout 10 --retry 128 --disable-epsv --ftp-pasv --ipv4
+        --max-time 1800 --connect-timeout 10 --retry 128 --disable-epsv --ftp-pasv --ipv4 --verbose --progress-bar
       curl -T dist/bentewee.tar.gz ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD} \
-        --max-time 1800 --connect-timeout 10 --retry 128 --disable-epsv --ftp-pasv --ipv4
+        --max-time 1800 --connect-timeout 10 --retry 128 --disable-epsv --ftp-pasv --ipv4 --verbose --progress-bar
       curl -T dist/bentewee.AppImage ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD} \
-        --max-time 1800 --connect-timeout 10 --retry 128 --disable-epsv --ftp-pasv --ipv4
+        --max-time 1800 --connect-timeout 10 --retry 128 --disable-epsv --ftp-pasv --ipv4 --verbose --progress-bar
     else
       curl -T dist/bentewee.dmg ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD} \
-        --max-time 1800 --connect-timeout 10 --retry 128 --disable-epsv --ftp-pasv --ipv4
+        --max-time 1800 --connect-timeout 10 --retry 128 --disable-epsv --ftp-pasv --ipv4 --verbose --progress-bar
     fi
 
 branches:
