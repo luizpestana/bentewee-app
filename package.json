@@ -25,6 +25,10 @@
       "output": "dist",
       "buildResources": "assets"
     },
+    "files": [
+      "**/*",
+      "plugins/*.*"
+    ],
     "win": {
       "target": [
         "nsis",
