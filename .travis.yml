@@ -41,13 +41,14 @@ after_success:
       TRAVIS_TAG=dev
     fi
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      curl -T dist/bentewee-setup.exe ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD}
-      curl -T dist/bentewee.deb ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD}
-      curl -T dist/bentewee.rpm ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD}
-      curl -T dist/bentewee.tar.gz ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD}
-      curl -T dist/bentewee.AppImage ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD}
+      curl -T dist/bentewee.exe ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD} --max-time 3600
+      curl -T dist/bentewee-setup.exe ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD} --max-time 3600
+      curl -T dist/bentewee.deb ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD} --max-time 3600
+      curl -T dist/bentewee.rpm ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD} --max-time 3600
+      curl -T dist/bentewee.tar.gz ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD} --max-time 3600
+      curl -T dist/bentewee.AppImage ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD} --max-time 3600
     else
-      curl -T dist/bentewee.dmg ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD}
+      curl -T dist/bentewee.dmg ${SFTP_ADDRESS}${TRAVIS_TAG}/ --ftp-create-dirs --user ${SFTP_USER}:${SFTP_PASSWORD} --max-time 3600
     fi
 
 branches:
