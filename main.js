@@ -52,7 +52,7 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 720,
-    icon: `${__dirname}/build/icon.png`,
+    icon: path.join(__dirname, './build/icon.icns'),
     title: app.getName(),
     webPreferences: {
       plugins: true,
