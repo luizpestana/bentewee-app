@@ -37,7 +37,7 @@
         "dmg"
       ],
       "extraFiles": [
-        "plugins/PepperFlashPlayer.plugin"
+        "plugins/PepperFlashPlayer.plugin/*"
       ]
     },
     "linux": {
