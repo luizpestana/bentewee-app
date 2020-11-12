@@ -1,5 +1,6 @@
 {
-  "name": "bentewee-app",
+  "name": "bentewee",
+  "homepage": "https://www.bentewee.com/",
   "version": "1.0.0",
   "description": "A bentewee app",
   "main": "main.js",
@@ -23,26 +24,20 @@
     "copyright": "Copyright (c) 2020 bentewee",
     "directories": {
       "output": "dist",
-      "buildResources": "assets"
-    },
-    "extraFiles": [
-      {
-        "from": "plugins",
-        "to": "plugins",
-        "filter": ["**/*"]
-      }
-    ],
-    "win": {
-      "target": [
-        "nsis",
-        "portable"
-      ]
+      "buildResources": "build"
     },
     "mac": {
       "category": "public.app-category.games",
-      "icon": "assets/icon.png",
+      "icon": "build/icon.png",
       "target": [
         "dmg"
+      ],
+      "extraFiles": [
+        {
+          "from": "plugins",
+          "to": "plugins",
+          "filter": ["*.plugin"]
+        }
       ]
     },
     "linux": {
@@ -52,29 +47,49 @@
         "tar.gz",
         "AppImage"
       ],
+      "extraFiles": [
+        {
+          "from": "plugins",
+          "to": "plugins",
+          "filter": ["*.so"]
+        }
+      ],
       "desktop": {
         "Categories": "Game"
       }
     },
-    "nsis": {
-      "installerIcon": "assets/icon.ico",
-      "installerSidebar": "assets/background.bmp",
-      "artifactName": "${productName}-setup.${ext}",
-      "oneClick": false,
-      "perMachine": true,
-      "deleteAppDataOnUninstall": true,
-      "license": "LICENSE.md",
-      "language": "1033"
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "extraFiles": [
+        {
+          "from": "plugins",
+          "to": "plugins",
+          "filter": ["*.dll"]
+        }
+      ]
     },
     "dmg": {
-      "icon": "assets/icon.png",
-      "background": "assets/background.png",
+      "icon": "build/icon.png",
+      "background": "build/installerBackground.png",
       "title": "${productName}-setup",
       "artifactName": "${productName}.${ext}",
       "window": {
         "height": 380,
         "width": 540
       }
+    },
+    "nsis": {
+      "installerIcon": "build/icon.ico",
+      "installerSidebar": "build/installerSidebar.bmp",
+      "artifactName": "${productName}-setup.${ext}",
+      "oneClick": false,
+      "perMachine": true,
+      "deleteAppDataOnUninstall": true,
+      "license": "LICENSE.md",
+      "language": "1033"
     },
     "publish": {
       "provider": "spaces",

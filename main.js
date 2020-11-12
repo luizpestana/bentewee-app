@@ -27,14 +27,14 @@ const isPackaged = ((
 
 let pluginName;
 switch (process.platform) {
-  case 'win32':
-    pluginName = './plugins/pepflashplayer.dll';
-    break;
   case 'darwin':
     pluginName = './plugins/PepperFlashPlayer.plugin';
     break;
   case 'linux':
-    pluginName = './plugins/libpepflashplayer.so';
+    pluginName = './plugins/libpepflashplayer_' + process.arch + '.so';
+    break;
+  case 'win32':
+    pluginName = './plugins/pepflashplayer_' + process.arch + '.dll';
     break;
 }
 if (isPackaged) {
@@ -53,7 +53,7 @@ function createWindow () {
     width: 1280,
     height: 720,
     icon: `${__dirname}/build/icon.png`,
-    title: __dirname,
+    title: app.getName(),
     webPreferences: {
       plugins: true,
       webviewTag: true,
