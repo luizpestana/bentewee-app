@@ -26,6 +26,10 @@
       "output": "dist",
       "buildResources": "build"
     },
+    "files": [
+      "**/*",
+      "build/icon.*"
+    ],
     "mac": {
       "category": "public.app-category.games",
       "icon": "build/icon.png",
@@ -33,11 +37,7 @@
         "dmg"
       ],
       "extraFiles": [
-        {
-          "from": "plugins",
-          "to": "plugins",
-          "filter": ["*.plugin"]
-        }
+        "plugins/PepperFlashPlayer.plugin"
       ]
     },
     "linux": {
@@ -48,11 +48,8 @@
         "AppImage"
       ],
       "extraFiles": [
-        {
-          "from": "plugins",
-          "to": "plugins",
-          "filter": ["*.so"]
-        }
+        "plugins/libflashplayer_ia32.so",
+        "plugins/libflashplayer_x64.so"
       ],
       "desktop": {
         "Categories": "Game"
@@ -64,11 +61,8 @@
         "portable"
       ],
       "extraFiles": [
-        {
-          "from": "plugins",
-          "to": "plugins",
-          "filter": ["*.dll"]
-        }
+        "plugins/libflashplayer_ia32.dll",
+        "plugins/libflashplayer_x64.dll"
       ]
     },
     "dmg": {
