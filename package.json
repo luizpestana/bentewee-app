@@ -37,7 +37,11 @@
         "dmg"
       ],
       "extraFiles": [
-        "plugins/PepperFlashPlayer.plugin/*"
+        {
+          "from": "plugins/PepperFlashPlayer.plugin",
+          "to": "plugins/PepperFlashPlayer.plugin",
+          "filter": ["**/*"]
+        }
       ]
     },
     "linux": {
@@ -48,8 +52,11 @@
         "AppImage"
       ],
       "extraFiles": [
-        "plugins/libflashplayer_ia32.so",
-        "plugins/libflashplayer_x64.so"
+        {
+          "from": "plugins",
+          "to": "plugins",
+          "filter": ["*.so"]
+        }
       ],
       "desktop": {
         "Categories": "Game"
@@ -61,13 +68,16 @@
         "portable"
       ],
       "extraFiles": [
-        "plugins/libflashplayer_ia32.dll",
-        "plugins/libflashplayer_x64.dll"
+        {
+          "from": "plugins",
+          "to": "plugins",
+          "filter": ["*.dll"]
+        }
       ]
     },
     "dmg": {
-      "icon": "build/icon.png",
-      "background": "build/installerBackground.png",
+      "icon": "build/icon.icns",
+      "background": "build/background.png",
       "title": "${productName}-setup",
       "artifactName": "${productName}.${ext}",
       "window": {
