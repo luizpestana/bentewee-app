@@ -6,18 +6,7 @@ const instanceLock = app.requestSingleInstanceLock();
 
 if (!instanceLock) {
   app.quit();
-}
-else {
-  app.on('second-instance', (event, argv, workingDirectory) => {
-    if (mainWindow) {
-      console.log('Second instance launched. Focus on currently running instance if minimized.');
-
-      if (mainWindow.isMinimized()) {
-        mainWindow.restore();
-        mainWindow.focus();
-      }
-    }
-  });
+  process.exit();
 }
 
 const isPackaged = ((
@@ -44,6 +33,8 @@ if (isPackaged) {
 }
 app.commandLine.appendSwitch('ppapi-flash-path', pluginName);
 
+app.setAsDefaultProtocolClient("bentewee");
+
 function createWindow () {
   if (mainWindow) {
     return;
@@ -57,7 +48,6 @@ function createWindow () {
     webPreferences: {
       plugins: true,
       webviewTag: true,
-      devTools: false,
     }
   });
 
@@ -67,6 +57,20 @@ function createWindow () {
 
   mainWindow.setMenuBarVisibility(false);
   mainWindow.loadURL(`file://${__dirname}/index.html`);
+  if (process.argv.length > 1) {
+    if (process.argv.length > 2 && process.argv[2] === 'debug') {
+      mainWindow.openDevTools();
+    } else {
+      loadCustomUrl(process.argv[1]);
+    }
+  }
+}
+
+function loadCustomUrl(url) {
+  if (url.startsWith('bentewee://')) {
+    url = 'https://www.bentewee.com/' + url.substr(11);
+    mainWindow.webContents.executeJavaScript(`document.getElementById('benteview').loadURL('${url}');`);
+  }
 }
 
 app.whenReady().then(() => {
@@ -75,6 +79,24 @@ app.whenReady().then(() => {
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
+});
+
+app.on('second-instance', (event, argv, workingDirectory) => {
+  if (mainWindow) {
+    if (argv.length > 1) {
+      loadCustomUrl(argv[1]);
+    }
+    if (mainWindow.isMinimized()) {
+      mainWindow.restore();
+    }
+    mainWindow.focus();
+  }
+});
+
+app.on('open-url', (event, url) => {
+  event.preventDefault();
+
+  loadCustomUrl(url);
 });
 
 app.on('window-all-closed', function () {
