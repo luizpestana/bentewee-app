@@ -6,7 +6,7 @@ const instanceLock = app.requestSingleInstanceLock();
 
 if (!instanceLock) {
   app.quit();
-  process.exit();
+  return;
 }
 
 const isPackaged = ((
@@ -33,6 +33,7 @@ if (isPackaged) {
 }
 app.commandLine.appendSwitch('ppapi-flash-path', pluginName);
 
+let customUrl = null;
 app.setAsDefaultProtocolClient("bentewee");
 
 function createWindow () {
@@ -57,20 +58,29 @@ function createWindow () {
 
   mainWindow.setMenuBarVisibility(false);
   mainWindow.loadURL(`file://${__dirname}/index.html`);
-  if (process.argv.length > 1) {
-    if (process.argv.length > 2 && process.argv[2] === 'debug') {
-      mainWindow.openDevTools();
-    } else {
-      loadCustomUrl(process.argv[1]);
-    }
+  if (parseCustomUrl(process.argv)) {
+    loadCustomUrl();
   }
 }
 
-function loadCustomUrl(url) {
-  if (url.startsWith('bentewee://')) {
-    url = 'https://www.bentewee.com/' + url.substr(11);
-    mainWindow.webContents.executeJavaScript(`document.getElementById('benteview').loadURL('${url}');`);
+function parseCustomUrl(argv) {
+  if (customUrl) {
+    return true;
   }
+  for (const url of argv) {
+    if (url.startsWith('bentewee://')) {
+      customUrl = 'https://www.bentewee.com/' + url.substr(11);
+      return true;
+    }
+  }
+  return false;
+}
+
+function loadCustomUrl() {
+  if (customUrl) {
+    mainWindow.webContents.executeJavaScript(`document.getElementById('benteview').loadURL('${customUrl}');`);
+  }
+  customUrl = null;
 }
 
 app.whenReady().then(() => {
@@ -83,8 +93,8 @@ app.whenReady().then(() => {
 
 app.on('second-instance', (event, argv, workingDirectory) => {
   if (mainWindow) {
-    if (argv.length > 1) {
-      loadCustomUrl(argv[1]);
+    if (parseCustomUrl(argv)) {
+      loadCustomUrl();
     }
     if (mainWindow.isMinimized()) {
       mainWindow.restore();
@@ -95,8 +105,7 @@ app.on('second-instance', (event, argv, workingDirectory) => {
 
 app.on('open-url', (event, url) => {
   event.preventDefault();
-
-  loadCustomUrl(url);
+  parseCustomUrl([url]);
 });
 
 app.on('window-all-closed', function () {
