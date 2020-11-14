@@ -111,6 +111,10 @@ app.on('open-url', (event, url) => {
   event.preventDefault();
   if (parseCustomUrl([url]) && mainWindow) {
     loadCustomUrl();
+    if (mainWindow.isMinimized()) {
+      mainWindow.restore();
+    }
+    mainWindow.focus();
   }
 });
 
