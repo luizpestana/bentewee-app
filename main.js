@@ -34,7 +34,11 @@ if (isPackaged) {
 app.commandLine.appendSwitch('ppapi-flash-path', pluginName);
 
 let customUrl = null;
-app.setAsDefaultProtocolClient("bentewee");
+if (process.platform === 'win32') {
+  app.setAsDefaultProtocolClient('bentewee', process.execPath, [app.getAppPath()]);
+} else {
+  app.setAsDefaultProtocolClient('bentewee');
+}
 
 function createWindow () {
   if (mainWindow) {
@@ -105,7 +109,9 @@ app.on('second-instance', (event, argv, workingDirectory) => {
 
 app.on('open-url', (event, url) => {
   event.preventDefault();
-  parseCustomUrl([url]);
+  if (parseCustomUrl([url]) && mainWindow) {
+    loadCustomUrl();
+  }
 });
 
 app.on('window-all-closed', function () {
