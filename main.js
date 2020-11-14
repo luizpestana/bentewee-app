@@ -91,7 +91,9 @@ app.whenReady().then(() => {
   createWindow();
   
   app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow();
+    }
   });
 });
 
@@ -109,12 +111,18 @@ app.on('second-instance', (event, argv, workingDirectory) => {
 
 app.on('open-url', (event, url) => {
   event.preventDefault();
-  if (parseCustomUrl([url]) && mainWindow) {
-    loadCustomUrl();
-    if (mainWindow.isMinimized()) {
-      mainWindow.restore();
+  if (parseCustomUrl([url])) {
+    if (app.isReady()) {
+      if (BrowserWindow.getAllWindows().length === 0) {
+        createWindow();
+      } else if (mainWindow) {
+        loadCustomUrl();
+        if (mainWindow.isMinimized()) {
+          mainWindow.restore();
+        }
+        mainWindow.focus();    
+      }
     }
-    mainWindow.focus();
   }
 });
 
