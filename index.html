@@ -3,14 +3,79 @@
   <head>
     <meta charset="UTF-8">
     <link href="./index.css" rel="stylesheet">
+    <link href="./bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
-    <webview id="benteview" src="https://www.bentewee.com/" partition="persist:webview" autosize plugins></webview>
+    <ul id="bentenavs" class="nav nav-tabs"></ul>
+    <div id="bentetabs"></div>
     <script>
-      var webview = document.getElementById('benteview');
-      webview.addEventListener('dom-ready', e => {
-        webview.blur();
-        webview.focus();
+      var $ = require('jquery');
+      require('popper.js');
+      require('bootstrap');
+
+      var tabCount = 0;
+      var tabId = 0;
+      var tabIdActive = 0;
+      var tabIdLastClosed;
+
+      function newTab(url) {
+        tabCount = tabCount + 1;
+        tabId = tabId + 1;
+
+        tabTitle = 'Home';
+        urlParts = url.replace('https://www.bentewee.com/','').split('/');
+        if (urlParts[urlParts.length - 1].length > 0) {
+          tabTitle = urlParts[urlParts.length - 1].substr(0, 20);
+        } else if (urlParts.length > 1 && urlParts[urlParts.length - 2].length > 0) {
+          tabTitle = urlParts[urlParts.length - 2].substr(0, 20);
+        }
+
+        $('.bentenav').removeClass('active');
+        $('.bentetab').hide();
+
+        $('#bentenavs').append('<li id="nav' + tabId + '" class="nav-item"><a class="bentenav nav-link active" href="#tab' + tabId + '"><button class="close" type="button">×</button>' + tabTitle + '</a></li>');
+        $('#bentetabs').append('<div id="tab' + tabId + '" class="bentetab"><webview class="benteview" src="' + url + '" partition="persist:webview" autosize plugins></webview></div>');
+
+        tabIdActive = tabId;
+
+        $('.bentenav').click(function(e) {
+          e.preventDefault();
+
+          activateTab($(this).attr('href').replace('#tab', ''));
+        });
+
+        $('.close').click(function(e) {
+          e.preventDefault();
+
+          if (tabCount > 1) {
+            var tabIdClose = $(this).parent().attr("href");
+            if (tabIdClose !== tabIdLastClosed) {
+              tabCount = tabCount - 1;
+              tabIdLastClosed = tabIdClose;
+              
+              $(tabIdClose).remove();
+              $(this).parent().parent().remove();
+
+              if (('#tab' + tabIdActive) === tabIdClose) {
+                activateTab($('.bentetab').last().attr('id').replace('tab', ''));
+              }
+            }
+          }
+        });
+      }
+
+      function activateTab(id) {
+          $('.bentenav').removeClass('active');
+          $('.bentetab').hide();
+
+          $('#nav' + id + ' > a.bentenav').addClass('active');
+          $('#tab' + id).show();
+
+          tabIdActive = parseInt(id);
+      }
+
+      $(function() {
+        newTab('https://www.bentewee.com/');
       });
     </script>
   </body>

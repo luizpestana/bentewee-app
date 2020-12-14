@@ -82,7 +82,7 @@ function parseCustomUrl(argv) {
 
 function loadCustomUrl() {
   if (customUrl) {
-    mainWindow.webContents.executeJavaScript(`document.getElementById('benteview').loadURL('${customUrl}');`);
+    mainWindow.webContents.executeJavaScript(`newTab('${customUrl}');`);
   }
   customUrl = null;
 }
@@ -134,7 +134,11 @@ app.on('web-contents-created', (e, contents) => {
   if (contents.getType() == 'webview') {
     contents.on('new-window', (e, url) => {
       e.preventDefault();
-      shell.openExternal(url);
+      if (url.startsWith('https://www.bentewee.com/')) {
+        mainWindow.webContents.executeJavaScript(`newTab('${url}');`);
+      } else {
+        shell.openExternal(url);
+      }
     });
   }
 });

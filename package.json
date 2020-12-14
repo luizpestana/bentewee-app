@@ -1,7 +1,7 @@
 {
   "name": "bentewee",
   "homepage": "https://www.bentewee.com/",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A bentewee app",
   "main": "main.js",
   "scripts": {
@@ -55,7 +55,9 @@
         {
           "from": "plugins/PepperFlashPlayer.plugin",
           "to": "plugins/PepperFlashPlayer.plugin",
-          "filter": ["**/*"]
+          "filter": [
+            "**/*"
+          ]
         }
       ]
     },
@@ -93,7 +95,9 @@
         {
           "from": "plugins",
           "to": "plugins",
-          "filter": ["*.so"]
+          "filter": [
+            "*.so"
+          ]
         }
       ],
       "desktop": {
@@ -121,7 +125,9 @@
         {
           "from": "plugins",
           "to": "plugins",
-          "filter": ["*.dll"]
+          "filter": [
+            "*.dll"
+          ]
         }
       ]
     },
@@ -157,5 +163,10 @@
   "devDependencies": {
     "electron": "^4.2.12",
     "electron-builder": "^22.9.1"
+  },
+  "dependencies": {
+    "bootstrap": "^4.5.3",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.14.4"
   }
 }
