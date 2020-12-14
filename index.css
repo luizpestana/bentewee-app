@@ -3,7 +3,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background: #99CCCC;
+    background: #99cccc;
 }
 
 #bentenavs {
@@ -12,6 +12,37 @@ html, body {
     left: 0;
     right: 0;
     height: 41px;
+    background: #99cccc;
+    border-color: #222222;
+}
+
+.bentenav {
+    color: #9d9d9d;
+    background: #080808;
+    border-color: #222222;
+}
+
+.bentenav.active {
+    color: #9d9d9d !important;
+    background: #222222 !important;
+    border-color: #222222 !important;
+}
+
+.bentenav.active:hover {
+    border-color: #222222 !important;
+}
+
+.bentenav:hover {
+    color: #ffffff !important;
+    border-color: #080808 !important;
+}
+
+button.close {
+    color: #9d9d9d !important;
+}
+
+button.close:active {
+    outline: none !important;
 }
 
 .nav-tabs > li .close {
@@ -21,7 +52,7 @@ html, body {
 
 #bentetabs {
     position: fixed;
-    top: 41px;
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
