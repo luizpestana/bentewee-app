@@ -167,6 +167,8 @@
   "dependencies": {
     "bootstrap": "^4.5.3",
     "jquery": "^3.5.1",
-    "popper.js": "^1.14.4"
+    "node-localstorage": "^2.1.6",
+    "popper.js": "^1.14.4",
+    "universal-analytics": "^0.4.23"
   }
 }

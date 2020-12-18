@@ -1,6 +1,15 @@
 const {app, shell, BrowserWindow} = require('electron');
 const path = require('path');
 
+const uuid = require('uuid/v4');
+const { JSONStorage } = require('node-localstorage');
+const nodeStorage = new JSONStorage(app.getPath('userData'));
+const userId = nodeStorage.getItem('userid') || uuid();
+nodeStorage.setItem('userid', userId);
+
+const ua = require('universal-analytics');
+const visitor = ua('UA-379932-5', userId);
+
 let mainWindow = null;
 const instanceLock = app.requestSingleInstanceLock();
 
@@ -8,6 +17,8 @@ if (!instanceLock) {
   app.quit();
   return;
 }
+
+visitor.event(app.getName(), app.getVersion(), process.platform + '_' + process.arch).send();
 
 const isPackaged = ((
   process.mainModule &&
