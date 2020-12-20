@@ -31,7 +31,7 @@ switch (process.platform) {
     pluginName = './plugins/PepperFlashPlayer.plugin';
     break;
   case 'linux':
-    pluginName = './plugins/libpepflashplayer_' + process.arch + '.so';
+    pluginName = './plugins/libpepflashplayer.so';
     break;
   case 'win32':
     pluginName = './plugins/pepflashplayer_' + process.arch + '.dll';
