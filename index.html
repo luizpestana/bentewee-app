@@ -9,7 +9,8 @@
     <ul id="bentenavs" class="nav nav-tabs" style="display: none"></ul>
     <div id="bentetabs"></div>
     <script>
-      var $ = require('jquery');
+      const {webFrame} = require('electron');
+      const $ = require('jquery');
       require('popper.js');
       require('bootstrap');
 
@@ -103,6 +104,12 @@
       }
 
       $(function() {
+        const bar = document.getElementById('bentenavs');
+        bar.onwheel = (e) => {
+          e.preventDefault();
+          webFrame.setZoomFactor(webFrame.getZoomFactor() - (e.deltaY * 0.001));
+        };
+
         newTab('https://www.bentewee.com/');
       });
     </script>
